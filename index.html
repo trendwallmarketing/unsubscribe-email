@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unsubscribe - TrendWall</title>
+<style>
+  /* General Styles */
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .container {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  /* Logo */
+  .logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    margin: 10px 0;
+    color: #333;
+  }
+
+  p {
+    color: #555;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  /* Input */
+  input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  /* Button */
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background-color: #c9302c;
+  }
+
+  /* Success message */
+  .success {
+    display: none;
+    color: green;
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .container {
+      padding: 30px 20px;
+    }
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+  <!-- Logo -->
+  <img src="https://raw.githubusercontent.com/trendwallmarketing/Black-Friday-Sale/refs/heads/main/logo%20(1).png" alt="TrendWall Logo" class="logo">
+
+  <!-- Title -->
+  <h2>Unsubscribe</h2>
+  <p>Thank you! You will no longer receive emails from us.</p>
+
+  <!-- Form -->
+  <form id="unsubscribeForm">
+    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+    <button type="submit">Unsubscribe</button>
+  </form>
+
+  <!-- Success message -->
+  <p class="success" id="successMsg">
+    ✅ You have been unsubscribed successfully.
+  </p>
+</div>
+
+<script>
+  // Auto-fill email from URL
+  const params = new URLSearchParams(window.location.search);
+  document.getElementById("email").value = params.get("email") || "";
+
+  document.getElementById("unsubscribeForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    fetch("https://script.google.com/macros/s/AKfycbyOmLh8snilVWmPaGtgsQcSy8zSLkMoN1rth_v15kQdaoT1I3dbkwWsGys4ASYB_xqV/exec", {
+      method: "POST",
+      body: JSON.stringify({
+        email: document.getElementById("email").value
+      })
+    }).then(() => {
+      document.getElementById("unsubscribeForm").style.display = "none";
+      document.getElementById("successMsg").style.display = "block";
+    }).catch(err => {
+      alert("Something went wrong. Please try again.");
+      console.error(err);
+    });
+  });
+</script>
+</body>
+</html>
